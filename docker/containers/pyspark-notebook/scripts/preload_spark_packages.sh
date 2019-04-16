@@ -22,6 +22,7 @@ SPARK_DIST_CLASSPATH=${SPARK_DIST_CLASSPATH}:${HADOOP_HOME}/share/hadoop/tools/l
 export SPARK_DIST_CLASSPATH=${SPARK_DIST_CLASSPATH}
 
 # S3A aws protocol (AWS and MINIO)
+HADOOP_VERSION=$($HADOOP_HOME/bin/hadoop version | head -n 1 | awk '{print $2}')
 ${SPARK_HOME}/bin/spark-submit --packages "org.apache.hadoop:hadoop-aws:${HADOOP_VERSION}" /tmp/spark_session.py
 
 #jdbc connectors
@@ -31,5 +32,4 @@ ${SPARK_HOME}/bin/spark-submit --packages "org.postgresql:postgresql:42.2.5" /tm
 ${SPARK_HOME}/bin/spark-submit --packages "com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8" /tmp/spark_session.py
 
 # oracle via http://www.datanucleus.org
-${SPARK_HOME}/bin/spark-submit --jars \
-    "http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar" /tmp/spark_session.py
+# wget -P /home/$NB_USER/.ivy2/jars http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar

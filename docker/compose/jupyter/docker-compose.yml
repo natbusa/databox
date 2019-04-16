@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   jupyter:
-    image: datalabframework-demos/pyspark-notebook:2.4.0-hadoop-3.1.1
+    image: datalabframework-demos/pyspark-notebook:2.4.1-hadoop-3.1.1
     command: ['start-notebook.sh', '--NotebookApp.token=""']
     user: root
     environment:
@@ -19,12 +19,10 @@ services:
     - ./config:/opt/spark/conf:ro
     - ${DEMO_DIR}:/home/jovyan/work/${DEMO_NAME}
     - develop:/home/jovyan/develop
-    - ivy2:/home/jovyan/.ivy2:cached
 
 networks:
   datalabframework:
     external: true
 
 volumes:
-  ivy2:
   develop:

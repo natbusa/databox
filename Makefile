@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 ROOT_DIR = $(dir $(lastword $(MAKEFILE_LIST)))
-TEST_DEMOS = basic minimal
+TEST_DEMOS = $(ls demos)
 
 #include .env file (see .env.sample for reference)
 -include $(ROOT_DIR)/.env

@@ -2,11 +2,5 @@
 # required for this demo
 # the list of available modules can be retrieved with `make list-components`
 
-jupyter
-mssql
-mysql
-postgres
-minio
-hdfs
-kafka
-spark
+DEMO_REPO_URL=https://github.com/natbusa/dlf-tutorial
+DEMO_COMPONENTS=(jupyter mssql mysql postgres minio hdfs kafka spark)

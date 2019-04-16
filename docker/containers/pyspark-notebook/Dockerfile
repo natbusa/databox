@@ -2,7 +2,7 @@ FROM jupyter/scipy-notebook
 
 # Hadoop and spark versions
 ARG HADOOP_VERSION=3.1.1
-ARG SPARK_VERSION=2.4.0
+ARG SPARK_VERSION=2.4.1
 
 # apache mirrors and dist
 ARG APACHE_DIST=https://apache.org/dist
@@ -10,9 +10,6 @@ ARG APACHE_MIRROR=https://dist.apache.org/repos/dist/release
 
 USER root
 SHELL [ "/bin/bash", "-c" ]
-
-COPY scripts/preload_spark_packages.sh /tmp/preload_spark_packages.sh
-COPY scripts/download_jars.sh /tmp/download_jars.sh
 
 # update the system
 RUN apt-get -y update;
@@ -66,34 +63,16 @@ RUN set -eux; \
 ####################
 # RUN mkdir -p /usr/local/share/jupyter /usr/local/etc/jupyter; \
 #    chown $NB_UID:$NB_GID /usr/local/share/jupyter /usr/local/etc/jupyter;
-
-# add password for $(NB_USER)
-# RUN set -eux; usermod -aG sudo ${NB_USER}; echo "${NB_USER}:juno" | chpasswd
 ####################
 
-# Preload aws s3a support and jdbc drivers
-
-#s3a (aws and minio)
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars org.apache.hadoop:hadoop-aws:3.1.1
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars com.amazonaws:aws-java-sdk-bundle:1.11.271
-
-#mysql
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars com.google.protobuf:protobuf-java:2.6.0
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars mysql:mysql-connector-java:8.0.12
-
-#mssql
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8
-
-#postgresql
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars org.postgresql:postgresql:42.2.5
-
-#sqlite
-RUN /tmp/download_jars.sh --dir=${SPARK_HOME}/jars org.xerial:sqlite-jdbc:3.25.2
-
-# oracle
-RUN wget -P ${SPARK_HOME}/jars http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar
+COPY scripts/preload_spark_packages.sh /tmp/preload_spark_packages.sh
+COPY scripts/preload_spark_jars.sh /tmp/preload_spark_jars.sh
+COPY scripts/download_jars.sh /tmp/download_jars.sh
 
 USER $NB_UID
+
+# preload the spark packages and populate /home/jovyan/.ivy2
+RUN /tmp/preload_spark_packages.sh
 
 ## jupyter, arrow, and jupyterlab
 #RUN set -eux; \
@@ -117,4 +96,3 @@ USER $NB_UID
 #    rm -rf /home/$NB_USER/.node-gyp; \
 #    fix-permissions $CONDA_DIR; \
 #    fix-permissions /home/$NB_USER
-RUN echo $SPARK_DIST_CLASSPATH
