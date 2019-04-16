@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: pagila
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    command: postgres -c 'config_file=/usr/local/share/postgresql/postgresql.conf'
+    ports:
+    - 5432:5432
+    networks:
+    - datalabframework
+    volumes:
+    - ./postgresql.conf:/usr/local/share/postgresql/postgresql.conf:ro
+    - ./initdb:/docker-entrypoint-initdb.d:ro
+    - data:/var/lib/postgresql/data
+
+networks:
+  datalabframework:
+    external: true
+
+volumes:
+  data:

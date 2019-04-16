@@ -1,0 +1,44 @@
+version: '3.5'
+
+services:
+  minio:
+    image: minio/minio:edge
+    command: ["server", "/var/lib/minio"]
+    environment:
+      MINIO_ACCESS_KEY: minio-admin
+      MINIO_SECRET_KEY: minio-admin
+    ports:
+    - 9000:9000
+    networks:
+    - datalabframework
+    volumes:
+    - data:/var/lib/minio
+
+  createbuckets:
+    # for more production ready policies Check
+    # https://gist.github.com/natbusa/999b3e1346ac394886e832ce80f28932
+    # https://gist.github.com/natbusa/e777265633822c85f26dd2e936d6aef2
+    # https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-language-overview.html
+    image: minio/mc:edge
+    depends_on:
+      - minio
+    networks:
+    - datalabframework
+    entrypoint: >
+      /bin/sh -c "
+      while ! nc -z minio 9000; do echo 'Wait minio to startup...' && sleep 1; done;
+      sleep 5;
+      /usr/bin/mc config host add minio http://minio:9000 minio-admin minio-admin;
+      /usr/bin/mc rm -r --force minio/data;
+      /usr/bin/mc mb minio/data;
+      /usr/bin/mc policy public minio/data;
+      /usr/bin/mc admin user add minio minio-username minio-password readwrite;
+      exit 0;
+      "
+
+networks:
+  datalabframework:
+    external: true
+
+volumes:
+  data:

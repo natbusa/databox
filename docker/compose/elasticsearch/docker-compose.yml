@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    environment:
+    - discovery.type=single-node
+    - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+    - datalabframework
+    volumes:
+    - data:/usr/share/elasticsearch/data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.4.2
+    depends_on:
+    - elasticsearch
+    ports:
+    - 5601:5601
+    networks:
+    - datalabframework
+    volumes:
+    - logstash/pipeline:/usr/share/logstash/pipeline/
+
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+    - elasticsearch
+    ports:
+    - 5601:5601
+    networks:
+    - datalabframework
+
+networks:
+  datalabframework:
+    external: true
+
+volumes:
+  data:

@@ -1,0 +1,21 @@
+<configuration>
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://hive-metastore:9083</value>
+    </property>
+
+    <property>
+        <name>hive.server2.enable.doAs</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>hive.server2.thrift.port</name>
+        <value>10000</value>
+    </property>
+
+    <property>
+        <name>hive.server2.transport.mode</name>
+        <value>binary</value>
+    </property>
+</configuration>

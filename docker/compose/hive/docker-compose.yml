@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  hive-metastore:
+    image: datalabframework-demos/hive:3.1.1
+    command: hive-start.sh metastore
+    networks:
+    - datalabframework
+    ports:
+    - 9083
+    volumes:
+    - ./config/hive:/opt/hive/conf:ro
+    - ./config/hadoop:/opt/hadoop/etc/hadoop:ro
+
+  hive-thriftserver:
+    image: datalabframework-demos/pyspark-notebook:2.4.0-hadoop-3.1.1
+    command: ["wait-for.sh", "hive-metastore:9083", "--", "/opt/spark/sbin/start-thriftserver.sh"]
+    user: root
+    depends_on:
+    - hive-metastore
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+    ports:
+    - 10000:10000
+    networks:
+    - datalabframework
+    volumes:
+    - ./scripts:/usr/local/sbin
+    - ./config/spark:/opt/spark/conf:ro
+
+networks:
+  datalabframework:
+    external: true

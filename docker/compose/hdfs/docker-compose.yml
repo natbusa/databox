@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  hdfs-namenode:
+    image: datalabframework-demos/hadoop:3.1.1
+    command: hadoop-start.sh namenode
+    ports:
+    - 9870:9870
+    networks:
+    - datalabframework
+    volumes:
+    - ./config:/opt/hadoop/etc/hadoop:ro
+    - namenode:/var/lib/hadoop
+
+  hdfs-datanode1:
+    image: datalabframework-demos/hadoop:3.1.1
+    command: hadoop-start.sh datanode
+    networks:
+    - datalabframework
+    volumes:
+    - ./config:/opt/hadoop/etc/hadoop:ro
+    - datanode1:/var/lib/hadoop
+
+networks:
+  datalabframework:
+    external: true
+
+volumes:
+  namenode:
+  datanode1:

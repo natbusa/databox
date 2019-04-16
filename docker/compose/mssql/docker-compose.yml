@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    entrypoint: "docker-entrypoint.sh"
+    command: ["sqlservr"]
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_USERNAME: sa
+      MSSQL_SA_PASSWORD: Passw0rd
+    ports:
+    - 1433:1433
+    networks:
+    - datalabframework
+    volumes:
+    - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
+    - ./initdb:/docker-entrypoint-initdb.d:ro
+
+networks:
+  datalabframework:
+    external: true

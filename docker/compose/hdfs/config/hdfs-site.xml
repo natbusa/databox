@@ -1,0 +1,23 @@
+<!-- etc/hadoop/hdfs-site.xml -->
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>false</value>
+    </property>
+
+    <!-- for NameNode only -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:/var/lib/hadoop/hdfs/namenode</value>
+    </property>
+
+    <!-- for DataNode only -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:/var/lib/hadoop/hdfs/datanode</value>
+    </property>
+</configuration>
