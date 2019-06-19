@@ -15,11 +15,7 @@ services:
     volumes:
     - ./postgresql.conf:/usr/local/share/postgresql/postgresql.conf:ro
     - ./initdb:/docker-entrypoint-initdb.d:ro
-    - data:/var/lib/postgresql/data
 
 networks:
   datalabframework:
     external: true
-
-volumes:
-  data:

@@ -8,11 +8,9 @@ services:
       MINIO_ACCESS_KEY: minio-admin
       MINIO_SECRET_KEY: minio-admin
     ports:
-    - 9000:9000
+    - 9000:9001
     networks:
     - datalabframework
-    volumes:
-    - data:/var/lib/minio
 
   createbuckets:
     # for more production ready policies Check
@@ -39,6 +37,3 @@ services:
 networks:
   datalabframework:
     external: true
-
-volumes:
-  data:

@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  oracle:
+    image: store/oracle/database-enterprise:12.2.0.1-slim
+    ports:
+      - 1521:1521
+    volumes:
+      - ./db-sample-schemas:/home/oracle/db-sample-schemas
+      - ./run.sql:/home/oracle/run.sql
+      - ./start.sh:/home/oracle/start.sh
+    command:
+      - /home/oracle/start.sh
+    networks:
+    - datalabframework
+
+networks:
+  datalabframework:
+    external: true
