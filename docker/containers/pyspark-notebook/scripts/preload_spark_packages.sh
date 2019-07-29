@@ -26,10 +26,17 @@ HADOOP_VERSION=$($HADOOP_HOME/bin/hadoop version | head -n 1 | awk '{print $2}')
 ${SPARK_HOME}/bin/spark-submit --packages "org.apache.hadoop:hadoop-aws:${HADOOP_VERSION}" /tmp/spark_session.py
 
 #jdbc connectors
-${SPARK_HOME}/bin/spark-submit --packages "mysql:mysql-connector-java:8.0.12" /tmp/spark_session.py
 ${SPARK_HOME}/bin/spark-submit --packages "org.xerial:sqlite-jdbc:3.25.2" /tmp/spark_session.py
+${SPARK_HOME}/bin/spark-submit --packages "mysql:mysql-connector-java:8.0.12" /tmp/spark_session.py
 ${SPARK_HOME}/bin/spark-submit --packages "org.postgresql:postgresql:42.2.5" /tmp/spark_session.py
 ${SPARK_HOME}/bin/spark-submit --packages "com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8" /tmp/spark_session.py
+${SPARK_HOME}/bin/spark-submit --packages "ru.yandex.clickhouse:clickhouse-jdbc:0.1.54" /tmp/spark_session.py
 
-# oracle via http://www.datanucleus.org
-# wget -P /home/$NB_USER/.ivy2/jars http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar
+# preloading oracle 12.2 and oracle 11.1
+${SPARK_HOME}/bin/spark-submit --packages "com.oracle.jdbc:ojdbc8:12.2.0.1" \
+                               --repositories http://maven.icm.edu.pl/artifactory/repo/,https://maven.xwiki.org/externals \
+                               /tmp/spark_session.py
+
+${SPARK_HOME}/bin/spark-submit --packages "com.oracle.jdbc:ojdbc6:11.2.0.4" \
+                              --repositories http://maven.icm.edu.pl/artifactory/repo/,https://maven.xwiki.org/externals \
+                              /tmp/spark_session.py

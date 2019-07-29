@@ -13,6 +13,11 @@ services:
       - /home/oracle/start.sh
     networks:
     - datalabframework
+  #
+  # oracle-client:
+  #   image: store/oracle/database-enterprise:12.2.0.1-slim
+  #   networks:
+  #   - datalabframework
 
 networks:
   datalabframework:

@@ -1,0 +1,5 @@
+<yandex>
+  <tcp_port>9999</tcp_port>
+  <listen_host>::</listen_host>
+  <listen_host>0.0.0.0</listen_host>
+</yandex>

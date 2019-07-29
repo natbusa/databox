@@ -1,0 +1,21 @@
+DROP DATABASE tax_bills;
+
+CREATE DATABASE tax_bills;
+USE tax_bills;
+
+CREATE TABLE tax_bills_nyc (
+bbl Int64,
+owner_name String,
+address String,
+tax_class String,
+tax_rate String,
+emv Float64,
+tbea Float64,
+bav Float64,
+tba String,
+property_tax String,
+condonumber String,
+condo String,
+insertion_date DateTime MATERIALIZED now()
+)
+ENGINE = MergeTree PARTITION BY tax_class ORDER BY (owner_name)

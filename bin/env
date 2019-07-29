@@ -40,6 +40,8 @@ function show_urls() {
     echo "                  = mysql://127.0.0.1:3306"
     echo "MSSQL             = sqlserver://mssql:3306"
     echo "                  = sqlserver://127.0.0.1:1433"
+    echo "ClickHouse        = clickhouse://clickhouse:9999"
+    echo "                  = clickhouse://127.0.0.1:9999"
     echo "Hive              = jdbc:hive2://hive-thriftserver:10000"
     echo "                  = jdbc:hive2://127.0.0.1:10000"
     echo "Oracle            = jdbc:oracle:thin:@//oracle:1521"

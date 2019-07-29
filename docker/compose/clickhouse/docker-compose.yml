@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - 9999:9999
+      - 8123:8123
+    volumes:
+    - ./initdb:/docker-entrypoint-initdb.d:ro
+    - ./data:/tmp/data
+    - ./config.xml:/etc/clickhouse-server/config.d/connection.xml
+    networks:
+    - datalabframework
+
+networks:
+  datalabframework:
+    external: true

@@ -14,11 +14,15 @@ set -e
 #mssql
 ./download_jars.sh --dir=${SPARK_HOME}/jars com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8
 
+#clickhouse
+./download_jars.sh --dir=${SPARK_HOME}/jars ru.yandex.clickhouse:clickhouse-jdbc:0.1.54
+
 #postgresql
 ./download_jars.sh --dir=${SPARK_HOME}/jars org.postgresql:postgresql:42.2.5
 
 #sqlite
 ./download_jars.sh --dir=${SPARK_HOME}/jars org.xerial:sqlite-jdbc:3.25.2
 
-# oracle
-wget -P ${SPARK_HOME}/jars http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar
+#oracle
+./download_jars.sh --repo=http://maven.icm.edu.pl/artifactory/repo/ --dir=${SPARK_HOME}/jars com.oracle.jdbc:ojdbc8:12.2.0.1
+./download_jars.sh --repo=http://maven.icm.edu.pl/artifactory/repo/ --dir=${SPARK_HOME}/jars com.oracle.jdbc:ojdbc6:11.2.0.4
