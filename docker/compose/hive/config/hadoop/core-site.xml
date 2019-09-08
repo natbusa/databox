@@ -1,8 +1,0 @@
-<!-- etc/hadoop/core-site.xml -->
-<configuration>
-    <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://hdfs-namenode:8020</value>
-        <final>true</final>
-    </property>
-</configuration>
