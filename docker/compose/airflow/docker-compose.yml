@@ -1,0 +1,52 @@
+version: '3.5'
+
+services:
+  airflow-postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    networks:
+        - datalabframework
+
+  airflow:
+    image: natbusa/docker-airflow:1.10.4
+    # quick way to start airflow in root mode to open docker.sock
+    # a better way is what the jupyter has implemented here (at the cost of extra complexity)
+    # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/start.sh
+    # sketch of the solution:
+    #   provide docker GID to the start script in root modules
+    #   create a docker group with the id provided by the host
+    #   add user airflow to the group docker_dag, execute the comand as user 'airflow'
+    #   and keep the original env passed here to root.
+    #   do nothing if the user param is not passed to docker run/compose
+    user: root
+    depends_on:
+      - airflow-postgres
+    environment:
+      - LOAD_EX=y
+      - EXECUTOR=Local
+      - POSTGRES_HOST=airflow-postgres
+      - APP_THEME='cerulean.css'
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      # Uncomment to include custom plugins
+      - ./plugins:/usr/local/airflow/plugins
+      - ./requirements.txt:/requirements.txt
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8000:8080"
+    command: webserver
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+    networks:
+        - datalabframework
+
+networks:
+  datalabframework:
+    external: true
