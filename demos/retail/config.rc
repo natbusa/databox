@@ -3,4 +3,4 @@
 # the list of available modules can be retrieved with `make list-components`
 
 DEMO_REPO_URL=https://github.com/natbusa/dlf-retail
-DEMO_COMPONENTS=(jupyter postgres clickhouse minio hdfs kafka spark)
+DEMO_COMPONENTS=(jupyter postgres clickhouse minio kafka spark elk airflow)
