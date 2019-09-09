@@ -1,0 +1,3 @@
+[submodule "demos/tutorial/demo"]
+	path = demos/tutorial/demo
+	url = https://github.com/natbusa/dlf-tutorial.git
