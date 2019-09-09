@@ -19,7 +19,7 @@ default_args = {
 }
 
 def checkIfRepoIsAlreadyCloned():
-    if os.path.exists('/home/airflow/etl/tutorial'):
+    if os.path.exists('/usr/local/airflow/repos/tutorial'):
         return 'dummy'
     return 'git_clone'
 
@@ -31,12 +31,12 @@ with DAG(
 
     t_git_clone = BashOperator(
         task_id='git_clone',
-        bash_command='git clone https://github.com/natbusa/dlf-tutorial /home/airflow/etl/tutorial'
+        bash_command='git clone https://github.com/natbusa/dlf-tutorial /usr/local/airflow/repos/tutorial'
     )
 
     t_git_pull = BashOperator(
         task_id='git_pull',
-        bash_command='cd /home/airflow/etl/tutorial && git pull',
+        bash_command='cd /usr/local/airflow/repos/tutorial && git pull',
         trigger_rule='one_success'
     )
 
@@ -59,10 +59,10 @@ with DAG(
         auto_remove=True,
         environment={
         },
-        volumes=['/home/airflow/etl/tutorial:/etl/tutorial'],
-        command='spark-submit --master spark://spark-master:7077 /etl/tutorial/minimal.py',
+        volumes=['airflow_repos:/home/jovyan/work/repos'],
+        command='spark-submit --master spark://spark-master:7077 /home/jovyan/work/repos/tutorial/minimal.py',
         docker_url='unix://var/run/docker.sock',
-        network_mode='bridge'
+        network_mode='datalabframework'
     )
 
     t_git_pull >> t_docker

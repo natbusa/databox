@@ -28,24 +28,40 @@ services:
       - LOAD_EX=y
       - EXECUTOR=Local
       - POSTGRES_HOST=airflow-postgres
-      - APP_THEME='cerulean.css'
+      - AIRFLOW__WEBSERVER__RBAC=true
+      - APP_THEME="cerulean.css"
     volumes:
       - ./dags:/usr/local/airflow/dags
-      # Uncomment to include custom plugins
       - ./plugins:/usr/local/airflow/plugins
+      - repos:/usr/local/airflow/repos
       - ./requirements.txt:/requirements.txt
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "8000:8080"
+      - "8000:8000"
     command: webserver
     healthcheck:
       test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
       interval: 30s
       timeout: 30s
       retries: 3
-
     networks:
         - datalabframework
+
+  airflow-init:
+    image: natbusa/docker-airflow:1.10.4
+    depends_on:
+      - airflow-postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - POSTGRES_HOST=airflow-postgres
+      - AIRFLOW__WEBSERVER__RBAC=true
+    command:  airflow create_user -r Admin -u admin -e admin@example.org -f Admin -l Admin -p admin
+    networks:
+        - datalabframework
+
+volumes:
+  repos:
 
 networks:
   datalabframework:
