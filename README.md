@@ -28,13 +28,13 @@ type `ls demos` to print the list of the available demos.
 
 Currently available:
 
-### tutorial:
+**tutorial**:
 An overview of high productivity features for data science and data engineering, using spark and the datalabframework.
 Please have a look at [] for getting started with this tutorial.
 
-### retail:
+**retail**:
 A Data Engineering ETL/ML/AI Pipeline using the Olist ecommerce data from Kaggle.
-(In the making)
+(In the making ...)
 
 ### 4. Start up the demos
 
@@ -63,10 +63,11 @@ Tutorial setup a minicluster (single node) with the following components
 - jupyterlab(1)
 - airflow(1)
 
-The tutorial will be done in Python.   
+The tutorial will be done in Python.     
 Exploring quite a few libraries for data processing, analytics and machine learning.
 
 Synopsys:
+```
 - introduce docker, 
 - explore top docker cli commands
 - introduce docker-compose
@@ -85,7 +86,8 @@ Synopsys:
 - introducing bokeh
 - introducing plot.ly
 - introducing seaborn
-- introducing
+- High productivity:
+- Introducing datalabframework
 - ETL: build data cubes
 - ETL: logging
 - Introducing Kafka
@@ -94,3 +96,4 @@ Synopsys:
 - Introducing Airflow
 - ETL: workflows
 - Setup and ETL pipeline for Reporting and BI
+```
