@@ -6,14 +6,25 @@ services:
     environment:
     - discovery.type=single-node
     - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - 9201
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
     - datalabframework
+#    volumes:
+#    - data:/usr/share/elasticsearch/data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.4.2
+    depends_on:
+    - elasticsearch
+    networks:
+    - datalabframework
     volumes:
-    - data:/usr/share/elasticsearch/data
+    - ./logstash/pipeline:/usr/share/logstash/pipeline/
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.4.2
@@ -30,5 +41,5 @@ networks:
   datalabframework:
     external: true
 
-volumes:
-  data:
+#volumes:
+#  data:

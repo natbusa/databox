@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   jupyter:
-    image: datalabframework-demos/pyspark-notebook:2.4.1-hadoop-3.1.1
+    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
     command: ['start-notebook.sh', '--NotebookApp.token=""']
     user: root
     environment:
@@ -16,7 +16,6 @@ services:
     - datalabframework
     volumes:
     - ./startup.d:/usr/local/bin/before-notebook.d:ro
-    - ./config:/opt/spark/conf:ro
     - ${DEMO_DIR}:/home/jovyan/work/${DEMO_NAME}
     - develop:/home/jovyan/develop
 

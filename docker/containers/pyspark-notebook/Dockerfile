@@ -65,28 +65,32 @@ RUN set -eux; \
 #    chown $NB_UID:$NB_GID /usr/local/share/jupyter /usr/local/etc/jupyter;
 ####################
 
+COPY conf/spark-env.sh ${SPARK_HOME}/conf/spark-env.sh
+
 COPY scripts/preload_spark_packages.sh /tmp/preload_spark_packages.sh
 COPY scripts/preload_spark_jars.sh /tmp/preload_spark_jars.sh
 COPY scripts/download_jars.sh /tmp/download_jars.sh
+
+# create default hadoop logs dir
+RUN mkdir ${HADOOP_HOME}/logs
+RUN chown -R $NB_UID ${HADOOP_HOME}/logs
 
 USER $NB_UID
 
 # preload the spark packages and populate /home/jovyan/.ivy2
 RUN /tmp/preload_spark_packages.sh
 
-## jupyter, arrow, and jupyterlab
-#RUN set -eux; \
-#    conda install nbdime \
-#    conda install -y -c conda-forge jupyter_contrib_nbextensions; \
-#    conda install -y -c conda-forge boost pyarrow; \
-#    jupyter contrib nbextension install; \
-#    jupyter labextension install nbdime-jupyterlab; \
-#    nbdime config-git --enable --global;
-#
-## other bespoken python packages
-#RUN set -eux; \
-#    conda install -y python-dotenv
-#
+## install jupyterlab and extension
+RUN set -eux; \
+  conda install -y -c plotly plotly=4.1.0; \
+  conda install -y -c conda-forge jupyterlab nbdime ipyleaflet; \
+  jupyter labextension install \
+    @jupyter-widgets/jupyterlab-manager \
+    jupyterlab_bokeh \
+    jupyter-leaflet \
+    nbdime-jupyterlab; \
+  nbdime config-git --enable --global;
+
 ## cleanup
 #RUN set -eux; \
 #    conda clean -tipsy; \

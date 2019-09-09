@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   spark-master:
-    image: datalabframework-demos/pyspark-notebook:2.4.1-hadoop-3.1.1
+    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
     command: /opt/spark/sbin/start-master.sh
     user: root
     environment:
@@ -11,12 +11,9 @@ services:
     - 8080:8080
     networks:
     - datalabframework
-    volumes:
-    - ./config/master.conf:/opt/spark/conf/spark-defaults.conf:ro
-    - ./config/spark-env.sh:/opt/spark/conf/spark-env.sh:ro
 
   spark-worker1:
-    image: datalabframework-demos/pyspark-notebook:2.4.1-hadoop-3.1.1
+    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
     command: /opt/spark/sbin/start-slave.sh spark://spark-master:7077
     user: root
     depends_on:
@@ -25,12 +22,9 @@ services:
       SPARK_NO_DAEMONIZE: "true"
     networks:
     - datalabframework
-    volumes:
-    - ./config/workers.conf:/opt/spark/conf/spark-defaults.conf:ro
-    - ./config/spark-env.sh:/opt/spark/conf/spark-env.sh:ro
 
   spark-worker2:
-    image: datalabframework-demos/pyspark-notebook:2.4.1-hadoop-3.1.1
+    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
     command: /opt/spark/sbin/start-slave.sh spark://spark-master:7077
     user: root
     depends_on:
@@ -39,9 +33,6 @@ services:
       SPARK_NO_DAEMONIZE: "true"
     networks:
     - datalabframework
-    volumes:
-    - ./config/workers.conf:/opt/spark/conf/spark-defaults.conf:ro
-    - ./config/spark-env.sh:/opt/spark/conf/spark-env.sh:ro
 
 networks:
   datalabframework:
