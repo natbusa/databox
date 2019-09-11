@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=airflow
       - POSTGRES_DB=airflow
     networks:
-        - datalabframework
+        - databox
 
   airflow:
     image: natbusa/docker-airflow:1.10.4
@@ -45,7 +45,7 @@ services:
       timeout: 30s
       retries: 3
     networks:
-        - datalabframework
+        - databox
 
   airflow-init:
     image: natbusa/docker-airflow:1.10.4
@@ -58,11 +58,11 @@ services:
       - AIRFLOW__WEBSERVER__RBAC=true
     command:  airflow create_user -r Admin -u admin -e admin@example.org -f Admin -l Admin -p admin
     networks:
-        - datalabframework
+        - databox
 
 volumes:
   repos:
 
 networks:
-  datalabframework:
+  databox:
     external: true

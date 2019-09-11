@@ -13,7 +13,7 @@ services:
         soft: -1
         hard: -1
     networks:
-    - datalabframework
+    - databox
 #    volumes:
 #    - data:/usr/share/elasticsearch/data
 
@@ -22,7 +22,7 @@ services:
     depends_on:
     - elasticsearch
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./logstash/pipeline:/usr/share/logstash/pipeline/
 
@@ -35,10 +35,10 @@ services:
     ports:
     - 5601:5601
     networks:
-    - datalabframework
+    - databox
 
 networks:
-  datalabframework:
+  databox:
     external: true
 
 #volumes:

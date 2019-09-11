@@ -7,7 +7,7 @@ services:
     ports:
     - 9870:9870
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./config:/opt/hadoop/etc/hadoop:ro
     - namenode:/var/lib/hadoop
@@ -16,13 +16,13 @@ services:
     image: natbusa/hadoop:3.2.0
     command: hadoop-start.sh datanode
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./config:/opt/hadoop/etc/hadoop:ro
     - datanode1:/var/lib/hadoop
 
 networks:
-  datalabframework:
+  databox:
     external: true
 
 volumes:

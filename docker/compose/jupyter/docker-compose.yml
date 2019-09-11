@@ -13,14 +13,14 @@ services:
     ports:
     - 8888:8888
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./startup.d:/usr/local/bin/before-notebook.d:ro
     - ${DEMO_DIR}:/home/jovyan/work/${DEMO_NAME}
     - develop:/home/jovyan/develop
 
 networks:
-  datalabframework:
+  databox:
     external: true
 
 volumes:

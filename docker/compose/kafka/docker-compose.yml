@@ -8,7 +8,7 @@ services:
     ports:
     - 2181:2181
     networks:
-    - datalabframework
+    - databox
 
   kafka:
     image: bitnami/kafka:2
@@ -20,12 +20,12 @@ services:
     ports:
     - 9092:9092
     networks:
-    - datalabframework
+    - databox
     volumes:
     - data:/bitnami/kafka
 
 networks:
-  datalabframework:
+  databox:
     external: true
 
 volumes:

@@ -11,8 +11,8 @@ services:
     - ./data:/tmp/data
     - ./config.xml:/etc/clickhouse-server/config.d/connection.xml
     networks:
-    - datalabframework
+    - databox
 
 networks:
-  datalabframework:
+  databox:
     external: true

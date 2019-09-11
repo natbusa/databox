@@ -12,11 +12,11 @@ services:
     ports:
     - 1433:1433
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
     - ./initdb:/docker-entrypoint-initdb.d:ro
 
 networks:
-  datalabframework:
+  databox:
     external: true

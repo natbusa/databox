@@ -12,10 +12,10 @@ services:
     ports:
     - 3306:3306
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./initdb:/docker-entrypoint-initdb.d:ro
 
 networks:
-  datalabframework:
+  databox:
     external: true

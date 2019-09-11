@@ -12,13 +12,13 @@ services:
     command:
       - /home/oracle/start.sh
     networks:
-    - datalabframework
+    - databox
   #
   # oracle-client:
   #   image: store/oracle/database-enterprise:12.2.0.1-slim
   #   networks:
-  #   - datalabframework
+  #   - databox
 
 networks:
-  datalabframework:
+  databox:
     external: true

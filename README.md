@@ -1,6 +1,7 @@
 # Environment for Demos and Tutorials
 
- - A collections of demos for the datalabframework package
+ - A data cluster-in-a-box
+ - A collections of demos (Using databox and dataloof)
  - Advanced DevOps techniques
  - Advanced Spark
  - High Productivity techniques
@@ -29,7 +30,7 @@ type `ls demos` to print the list of the available demos.
 Currently available:
 
 **tutorial**:
-An overview of high productivity features for data science and data engineering, using spark and the datalabframework.
+An overview of high productivity features for data science and data engineering, using spark and the dataloof.
 Please have a look at [] for getting started with this tutorial.
 
 **retail**:
@@ -38,7 +39,7 @@ A Data Engineering ETL/ML/AI Pipeline using the Olist ecommerce data from Kaggle
 
 ### 4. Start up the demos
 
-Run `bin/env up <demo-name>`. 
+Run `bin/env up <demo-name>`.
 This command will start all the necessary components for the demo.
 
 ### 5. Tear down
@@ -48,7 +49,7 @@ This will free up all the resources and remove/kill all the running containers
 
 ### 6. Requirements
 This environment has been tested on Ubuntu 18.04 LTS 64bit with 16GB of RAM.  
-Recommended 16 or 32 GB of RAM. The setup works both on Metal and Cloud machines. 
+Recommended 16 or 32 GB of RAM. The setup works both on Metal and Cloud machines.
 
 ### 7. Workshop!
 
@@ -68,13 +69,13 @@ Exploring quite a few libraries for data processing, analytics and machine learn
 
 Synopsys:
 ```
-- introduce docker, 
+- introduce docker,
 - explore top docker cli commands
 - introduce docker-compose
 - introduce jupyterlab
 - quick overview of pandas
 - introducing spark
-- ingest data into minio (s3) 
+- ingest data into minio (s3)
 - ETL: oltp vs olap
 - ETL: dimensional modeling
 - build dimensions with spark
@@ -87,7 +88,7 @@ Synopsys:
 - introducing plot.ly
 - introducing seaborn
 - High productivity:
-- Introducing datalabframework
+- Introducing dataloof
 - ETL: build data cubes
 - ETL: logging
 - Introducing Kafka

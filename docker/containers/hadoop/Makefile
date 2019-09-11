@@ -4,4 +4,4 @@ build:
 	docker build --tag natbusa/hadoop:$(HADOOP_VERSION) --build-arg HADOOP_VERSION=$(HADOOP_VERSION) .
 
 publish: build
-	#docker push datalabframework-demos/hadoop:$(HADOOP_VERSION)
+	#docker push databox-demos/hadoop:$(HADOOP_VERSION)

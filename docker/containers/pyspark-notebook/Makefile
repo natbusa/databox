@@ -6,4 +6,4 @@ build:
 		--tag natbusa/pyspark-notebook:$(SPARK_VERSION)-hadoop-$(HADOOP_VERSION) .
 
 publish: build
-	#docker push datalabframework-demos/teko-warehouse/pyspark-notebook:$(SPARK_VERSION)-hadoop-$(HADOOP_VERSION) .
+	#docker push databox-demos/teko-warehouse/pyspark-notebook:$(SPARK_VERSION)-hadoop-$(HADOOP_VERSION) .

@@ -62,8 +62,8 @@ function show_urls() {
 
 function start_components() {
   # start network if not started yet
-  if ! docker network inspect datalabframework > /dev/null 2>&1; then
-      docker network create datalabframework
+  if ! docker network inspect databox > /dev/null 2>&1; then
+      docker network create databox
   fi
 
   # start components
@@ -95,8 +95,8 @@ function stop_components() {
 
   # bring down network if necessary
   if [ -n "${PURGE}" ]; then
-    if docker network inspect datalabframework > /dev/null 2>&1; then
-        docker network rm datalabframework
+    if docker network inspect databox > /dev/null 2>&1; then
+        docker network rm databox
     fi
   fi
 }

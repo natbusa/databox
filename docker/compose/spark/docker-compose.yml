@@ -10,7 +10,7 @@ services:
     ports:
     - 8080:8080
     networks:
-    - datalabframework
+    - databox
 
   spark-worker1:
     image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
@@ -21,7 +21,7 @@ services:
     environment:
       SPARK_NO_DAEMONIZE: "true"
     networks:
-    - datalabframework
+    - databox
 
   spark-worker2:
     image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
@@ -32,8 +32,8 @@ services:
     environment:
       SPARK_NO_DAEMONIZE: "true"
     networks:
-    - datalabframework
+    - databox
 
 networks:
-  datalabframework:
+  databox:
     external: true

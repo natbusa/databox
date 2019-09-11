@@ -11,11 +11,11 @@ services:
     ports:
     - 5432:5432
     networks:
-    - datalabframework
+    - databox
     volumes:
     - ./postgresql.conf:/usr/local/share/postgresql/postgresql.conf:ro
     - ./initdb:/docker-entrypoint-initdb.d:ro
 
 networks:
-  datalabframework:
+  databox:
     external: true
