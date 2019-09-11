@@ -1,3 +1,6 @@
 [submodule "demos/tutorial/demo"]
 	path = demos/tutorial/demo
 	url = https://github.com/natbusa/dlf-tutorial.git
+[submodule "demos/retail/demo"]
+	path = demos/retail/demo
+	url = https://github.com/natbusa/dlf-retail.git
