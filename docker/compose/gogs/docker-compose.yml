@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  gogs:
+    image: gogs/gogs
+    ports:
+    - "10022:22"
+    - 3000:3000
+    networks:
+    - databox
+
+networks:
+  databox:
+    external: true
