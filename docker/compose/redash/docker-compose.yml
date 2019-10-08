@@ -1,0 +1,57 @@
+version: '3.5'
+x-redash-service: &redash-service
+  image: redash/redash:7.0.0.b18042
+  depends_on:
+    - redash-postgres
+    - redash-redis
+  env_file: ./env
+  restart: always
+services:
+  redash-server:
+    <<: *redash-service
+    command: server
+    ports:
+      - "5000:5000"
+    environment:
+      REDASH_WEB_WORKERS: 1
+    networks:
+    - databox
+  redash-scheduler:
+    <<: *redash-service
+    command: scheduler
+    environment:
+      QUEUES: "celery"
+      WORKERS_COUNT: 1
+    networks:
+    - databox
+  redash-scheduled_worker:
+    <<: *redash-service
+    command: worker
+    environment:
+      QUEUES: "scheduled_queries,schemas"
+      WORKERS_COUNT: 1
+    networks:
+    - databox
+  redash-adhoc_worker:
+    <<: *redash-service
+    command: worker
+    environment:
+      QUEUES: "queries"
+      WORKERS_COUNT: 2
+    networks:
+    - databox
+  redash-redis:
+    image: redis:5.0-alpine
+    restart: always
+    networks:
+    - databox
+  redash-postgres:
+    image: postgres:9.5-alpine
+    env_file: ./env
+    restart: always
+    networks:
+    - databox
+
+networks:
+  databox:
+    external: true
