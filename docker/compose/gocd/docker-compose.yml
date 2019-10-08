@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  gocd-server:
+    image: gocd/gocd-server:v19.8.0
+    ports:
+      - 8153:8153
+      - 8154:8154
+    networks:
+    - databox
+
+  gocd-agent-ubuntu-18.04:
+    image:  gocd/gocd-agent-ubuntu-18.04:v19.8.0
+    environment:
+      GO_SERVER_URL: "https://gocd-server:8154/go"
+    depends_on:
+    - gocd-server
+    networks:
+    - databox
+
+networks:
+  databox:
+    external: true
