@@ -33,10 +33,10 @@ ${SPARK_HOME}/bin/spark-submit --packages "com.microsoft.sqlserver:mssql-jdbc:6.
 ${SPARK_HOME}/bin/spark-submit --packages "ru.yandex.clickhouse:clickhouse-jdbc:0.1.54" /tmp/spark_session.py
 
 # preloading oracle 12.2 and oracle 11.1
-${SPARK_HOME}/bin/spark-submit --packages "com.oracle.jdbc:ojdbc8:12.2.0.1" \
+${SPARK_HOME}/bin/spark-submit --packages "com.oracle.ojdbc:ojdbc8:19.3.0.0" \
                                --repositories http://maven.icm.edu.pl/artifactory/repo/,https://maven.xwiki.org/externals \
                                /tmp/spark_session.py
 
-${SPARK_HOME}/bin/spark-submit --packages "com.oracle.jdbc:ojdbc6:11.2.0.4" \
-                              --repositories http://maven.icm.edu.pl/artifactory/repo/,https://maven.xwiki.org/externals \
-                              /tmp/spark_session.py
+#${SPARK_HOME}/bin/spark-submit --packages "com.oracle.jdbc:ojdbc6:11.2.0.4" \
+#                              --repositories http://maven.icm.edu.pl/artifactory/repo/,https://maven.xwiki.org/externals \
+#                              /tmp/spark_session.py

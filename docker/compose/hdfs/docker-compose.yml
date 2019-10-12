@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   hdfs-namenode:
-    image: natbusa/hadoop:3.2.0
+    image: natbusa/hadoop:3.2.1
     command: hadoop-start.sh namenode
     ports:
     - 9870:9870
@@ -13,7 +13,7 @@ services:
     - namenode:/var/lib/hadoop
 
   hdfs-datanode1:
-    image: natbusa/hadoop:3.2.0
+    image: natbusa/hadoop:3.2.1
     command: hadoop-start.sh datanode
     networks:
     - databox

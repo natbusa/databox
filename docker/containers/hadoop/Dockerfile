@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-stretch
 
-ARG HADOOP_VERSION=3.1.1
+ARG HADOOP_VERSION=3.2.1
 ARG APACHE_DIST=https://apache.org/dist
 ARG APACHE_MIRROR=https://dist.apache.org/repos/dist/release
 

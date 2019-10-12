@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   jupyter:
-    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0
+    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.1
     command: ['start-notebook.sh', '--NotebookApp.token=""']
     user: root
     environment:

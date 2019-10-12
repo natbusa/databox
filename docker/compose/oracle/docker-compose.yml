@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   oracle:
-    image: store/oracle/database-enterprise:12.2.0.1-slim
+    image: store/oracle/database-enterprise:19.3.0.0-slim
     ports:
       - 1521:1521
     volumes:
