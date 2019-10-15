@@ -16,7 +16,7 @@ This demos require the following tools to be installed.
   - docker-compose
 
 Please clone this repository,
-then run `sudo scripts/install.sh` to install the above.
+then run `sudo bin/install.sh` to install the above.
 
 ## 2. Build Images
 This demo relies on some customized docker containers.
@@ -33,8 +33,8 @@ Currently available:
 An overview of high productivity features for data science and data engineering, using spark and the dataloof.
 Please have a look at [] for getting started with this tutorial.
 
-**retail**:
-A Data Engineering ETL/ML/AI Pipeline using the Olist ecommerce data from Kaggle.
+**oasis**:
+A Data Engineering ETL/ML/AI Pipeline using a fantasy game simulator.
 (In the making ...)
 
 ### 4. Start up the demos
