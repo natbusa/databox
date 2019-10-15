@@ -54,7 +54,7 @@ with DAG(
 
     t_docker = DockerOperator(
         task_id='docker_command',
-        image='natbusa/pyspark-notebook:2.4.4-hadoop-3.2.0',
+        image='natbusa/pyspark-notebook:2.4.4-hadoop-3.2.1',
         api_version='auto',
         auto_remove=True,
         environment={
