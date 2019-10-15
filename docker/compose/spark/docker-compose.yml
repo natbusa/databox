@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   spark-master:
-    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.1
+    image: databox/pyspark-notebook:2.4.4-hadoop-3.2.1
     command: /opt/spark/sbin/start-master.sh
     user: root
     environment:
@@ -13,7 +13,7 @@ services:
     - databox
 
   spark-worker1:
-    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.1
+    image: databox/pyspark-notebook:2.4.4-hadoop-3.2.1
     command: /opt/spark/sbin/start-slave.sh spark://spark-master:7077
     user: root
     depends_on:
@@ -24,7 +24,7 @@ services:
     - databox
 
   spark-worker2:
-    image: natbusa/pyspark-notebook:2.4.4-hadoop-3.2.1
+    image: databox/pyspark-notebook:2.4.4-hadoop-3.2.1
     command: /opt/spark/sbin/start-slave.sh spark://spark-master:7077
     user: root
     depends_on:

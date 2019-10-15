@@ -17,7 +17,7 @@ default_args = {
 with DAG('docker_spark', default_args=default_args, schedule_interval="5 * * * *", catchup=False) as dag:
         t2 = DockerOperator(
                 task_id='docker_command',
-                image='natbusa/pyspark-notebook:2.4.4-hadoop-3.2.1',
+                image='databox/pyspark-notebook:2.4.4-hadoop-3.2.1',
                 api_version='auto',
                 auto_remove=True,
                 command='spark-submit --master spark://spark-master:7077 /opt/spark/examples/src/main/python/pi.py 100',

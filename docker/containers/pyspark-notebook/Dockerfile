@@ -1,8 +1,8 @@
 FROM jupyter/scipy-notebook
 
 # Hadoop and spark versions
-ARG HADOOP_VERSION=3.1.1
-ARG SPARK_VERSION=2.4.1
+ARG HADOOP_VERSION=3.2.1
+ARG SPARK_VERSION=2.4.4
 
 # apache mirrors and dist
 ARG APACHE_DIST=https://apache.org/dist
