@@ -22,7 +22,7 @@ with DAG('docker_spark', default_args=default_args, schedule_interval="5 * * * *
                 auto_remove=True,
                 command='spark-submit --master spark://spark-master:7077 /opt/spark/examples/src/main/python/pi.py 100',
                 docker_url="unix://var/run/docker.sock",
-                network_mode="datalabframework"
+                network_mode="databox"
         )
 
         t3 = BashOperator(

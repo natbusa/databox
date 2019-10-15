@@ -116,8 +116,8 @@ loggers:
     root:
         severity: info
 
-    datalabframework:
-        name: dlf
+    datafaucet:
+        name: dfc
         stdout:
             enable: true
             severity: notice
@@ -130,7 +130,7 @@ loggers:
             hosts:
                 - kafka-node1:9092
                 - kafka-node2:9092
-            topic: dlf
+            topic: dfc
 ---
 profile: prod
 engine:

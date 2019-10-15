@@ -62,7 +62,7 @@ with DAG(
         volumes=['airflow_repos:/home/jovyan/work/repos'],
         command='spark-submit --master spark://spark-master:7077 /home/jovyan/work/repos/tutorial/minimal.py',
         docker_url='unix://var/run/docker.sock',
-        network_mode='datalabframework'
+        network_mode='databox'
     )
 
     t_git_pull >> t_docker

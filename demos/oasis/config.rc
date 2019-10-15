@@ -2,5 +2,5 @@
 # required for this demo
 # the list of available modules can be retrieved with `make list-components`
 
-DEMO_REPO_URL=https://github.com/natbusa/dlf-retail
+DEMO_REPO_URL=
 DEMO_COMPONENTS=(jupyter mysql postgres clickhouse minio kafka spark elk airflow gogs gocd redash)
