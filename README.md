@@ -30,8 +30,7 @@ type `ls demos` to print the list of the available demos.
 Currently available:
 
 **tutorial**:
-An overview of high productivity features for data science and data engineering, using spark and the dataloof.
-Please have a look at [] for getting started with this tutorial.
+An overview of high productivity features for data science and data engineering, using spark and datafaucet.
 
 **oasis**:
 A Data Engineering ETL/ML/AI Pipeline using a fantasy game simulator.
