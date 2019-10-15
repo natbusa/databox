@@ -307,7 +307,6 @@ celerybeat-schedule
 
 # Environments
 .env
-env.bak/
 
 # Spyder project settings
 .spyderproject
