@@ -20,7 +20,7 @@ then run `sudo bin/install.sh` to install the above.
 
 ## 2. Build Images
 This demo relies on some customized docker containers.
-Please run `docker/containers/build.sh`, to build the containers.
+Please run `bin/build.sh`, to build the containers.
 
 ## 3. Available demos
 
