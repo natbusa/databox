@@ -46,10 +46,3 @@ function install_docker_compose {
 }
 install_docker_compose
 
-################### BUILD CONTAINERS ###################
-pushd ${ROOT_DIR}/docker/containers > /dev/null
-for c in $(ls)
-do
-  pushd $c && make build && popd
-done
-popd > /dev/null
