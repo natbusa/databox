@@ -17,20 +17,48 @@ services:
     # https://gist.github.com/natbusa/999b3e1346ac394886e832ce80f28932
     # https://gist.github.com/natbusa/e777265633822c85f26dd2e936d6aef2
     # https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-language-overview.html
+
+    # run interactively
+    # docker run -it --network databox -v $(pwd)/policies:/srv/policies --entrypoint=/bin/sh minio/mc:edge
     image: minio/mc:edge
     depends_on:
       - minio
     networks:
     - databox
+    volumes:
+    - ./policies:/srv/policies:ro
     entrypoint: >
       /bin/sh -c "
       while ! nc -z minio 9000; do echo 'Wait minio to startup...' && sleep 1; done;
       sleep 5;
       /usr/bin/mc config host add minio http://minio:9000 minio-admin minio-admin;
-      /usr/bin/mc rm -r --force minio/data;
-      /usr/bin/mc mb minio/data;
-      /usr/bin/mc policy public minio/data;
-      /usr/bin/mc admin user add minio minio-username minio-password readwrite;
+
+      ### public bucket and policy
+      #/usr/bin/mc rm -r --force minio/public;
+      /usr/bin/mc mb minio/public;
+
+      /usr/bin/mc admin policy add minio public /srv/policies/public.json;
+      /usr/bin/mc admin user add minio minio-user minio-password public;
+
+      ### PSTD policies and backets and users
+      #/usr/bin/mc rm -r --force minio/prod;
+      #/usr/bin/mc rm -r --force minio/stage;
+      #/usr/bin/mc rm -r --force minio/test;
+      #/usr/bin/mc rm -r --force minio/dev;
+
+      /usr/bin/mc mb minio/prod;
+      /usr/bin/mc mb minio/stage;
+      /usr/bin/mc mb minio/test;
+      /usr/bin/mc mb minio/dev ;
+
+      /usr/bin/mc admin policy add minio prod /srv/policies/prod.json;
+      /usr/bin/mc admin policy add minio stage /srv/policies/stage.json;
+      /usr/bin/mc admin policy add minio testdev /srv/policies/testdev.json;
+
+      /usr/bin/mc admin user add minio prod-user prod-password prod;
+      /usr/bin/mc admin user add minio stage-user stage-password stage;
+      /usr/bin/mc admin user add minio develop-user develop-password testdev;
+
       exit 0;
       "
 

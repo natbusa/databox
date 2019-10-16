@@ -2,31 +2,64 @@ version: '3.5'
 
 services:
   zookeeper:
-    image: bitnami/zookeeper:3
+    image: 'bitnami/zookeeper:latest'
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     ports:
-    - 2181:2181
+    - 2181
     networks:
     - databox
 
   kafka:
-    image: bitnami/kafka:2
+    image: 'bitnami/kafka:latest'
     environment:
-      KAFKA_ZOOKEEPER_CONNECT:  "zookeeper:2181"
+      KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
       ALLOW_PLAINTEXT_LISTENER: "yes"
     depends_on:
     - zookeeper
     ports:
-    - 9092:9092
+    - 9092
     networks:
     - databox
-    volumes:
-    - data:/bitnami/kafka
+    # volumes:
+    # - data:/bitnami/kafka
+
+  createtopics:
+    # run interactively
+    #docker run -it --rm --network databox     -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181     bitnami/kafka:latest kafka-topics.sh --list  --zookeeper zookeeper:2181
+    #docker run -it --rm --network databox     -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181     bitnami/kafka:latest kafka-topics.sh --create --topic dfc  --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1
+    #docker run -it --rm --network databox     -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181     bitnami/kafka:latest kafka-topics.sh --describe --topic dfc  --zookeeper zookeeper:2181
+    #docker run -it --rm --network databox     -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181     bitnami/kafka:latest kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic dfc --from-beginning
+    image: 'bitnami/kafka:latest'
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    depends_on:
+    - zookeeper
+    - kafka
+    networks:
+    - databox
+    entrypoint: >
+      /bin/sh -c "
+
+      kafka-topics.sh  \
+        --create \
+        --topic dfc  \
+        --zookeeper zookeeper:2181 \
+        --partitions 1 \
+        --replication-factor 1;
+
+      kafka-topics.sh  \
+        --describe \
+        --topic dfc  \
+        --zookeeper zookeeper:2181;
+
+      exit 0;
+      "
 
 networks:
   databox:
     external: true
 
-volumes:
-  data:
+# volumes:
+#   data:

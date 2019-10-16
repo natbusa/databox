@@ -1,0 +1,52 @@
+---
+profile: default
+providers:
+    mysql:
+        service: mysql
+        hostname: mysql
+        username: oasis
+        password: oasis
+        path: oasis
+        format: jdbc
+        
+    minio:
+        service: minio
+        hostname: minio
+        username: prod-user
+        password: prod-password
+        path: prod/oasis
+        format: parquet
+    
+resources:
+    races: {}
+    categories: {}
+    artifacts: {}
+    players: {}
+    wallets: {}
+    events: {}
+    
+engine:
+    type: spark
+    master: local[1]
+
+loggers:
+    root:
+        severity: info
+
+    datafaucet:
+        name: dfc
+        stdout:
+            enable: true
+            severity: notice
+        file:
+            enable: true
+            severity: notice
+            path: 'dfc.log'
+            
+        kafka:
+            enable: true
+            severity: info
+            topic: dfc
+            hosts:
+                - kafka:9092
+            
