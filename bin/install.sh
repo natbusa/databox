@@ -21,12 +21,17 @@ install_requirements
 function install_docker {
   if [ "$(which docker)" ]; then
     echo "${BASH_SOURCE}: docker: already installed"
-    groupadd docker
+    echo "${BASH_SOURCE}: docker: adding ${USER} to docker group"
     usermod -aG docker "${USER}"
     return
   fi
   echo "${BASH_SOURCE}: Installing docker..."
   curl -sSL get.docker.io | bash
+  echo "${BASH_SOURCE}: docker: creating docker group"
+  groupadd docker
+  echo "${BASH_SOURCE}: docker: adding ${USER} to docker group"
+  usermod -aG docker "${USER}"
+
 }
 install_docker
 
