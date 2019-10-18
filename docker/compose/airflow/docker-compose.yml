@@ -11,7 +11,7 @@ services:
         - databox
 
   airflow:
-    image: natbusa/docker-airflow:1.10.4
+    image: databox/docker-airflow:1.10.4
     # quick way to start airflow in root mode to open docker.sock
     # a better way is what the jupyter has implemented here (at the cost of extra complexity)
     # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/start.sh
@@ -48,7 +48,7 @@ services:
         - databox
 
   airflow-init:
-    image: natbusa/docker-airflow:1.10.4
+    image: databox/docker-airflow:1.10.4
     depends_on:
       - airflow-postgres
     environment:
