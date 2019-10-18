@@ -18,6 +18,10 @@ This demos require the following tools to be installed.
 Please clone this repository,
 then run `sudo bin/install.sh` to install the above.
 
+Check if docker works: `docker info` should display plenty of data about the docker service.
+For the sake of the demo, as last resort if encountering problems: `sudo chmod 666 /var/run/docker.sock`
+Check https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
+
 ## 2. Build Images
 This demo relies on some customized docker containers.
 Please run `bin/build.sh`, to build the containers.
