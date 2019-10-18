@@ -4,6 +4,7 @@ x-redash-service: &redash-service
   depends_on:
     - redash-postgres
     - redash-redis
+    - redash-init
   env_file: ./env
   restart: always
 services:
@@ -49,6 +50,15 @@ services:
     image: postgres:9.5-alpine
     env_file: ./env
     restart: always
+    networks:
+    - databox
+  redash-init:
+    image: redash/redash:7.0.0.b18042
+    env_file: ./env
+    command: create_db
+    depends_on:
+      - redash-postgres
+      - redash-redis
     networks:
     - databox
 
