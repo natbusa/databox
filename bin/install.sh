@@ -21,7 +21,7 @@ install_requirements
 function install_docker {
   if [ "$(which docker)" ]; then
     echo "${BASH_SOURCE}: docker: already installed"
-    echo "${BASH_SOURCE}: docker: adding $SUDO_USER} to docker group"
+    echo "${BASH_SOURCE}: docker: adding ${SUDO_USER} to docker group"
     usermod -aG docker "${SUDO_USER}"
     return
   fi
