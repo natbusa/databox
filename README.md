@@ -23,9 +23,12 @@ For the sake of the demo, as last resort if encountering problems: `sudo chmod 6
 Check https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
 
 *Tunnel a remote port to localhost*
-On gcloud: 
-gcloud beta compute --project "ultimate-dataeng19-sin-41XX" ssh --zone "asia-southeast1-b" "databox-vm" -- -L 8888:localhost:8888
-
+On gcloud:   
+```
+gcloud beta compute --project "ultimate-dataeng19-sin-41XX" \
+        ssh --zone "asia-southeast1-b" "databox-vm" \
+        -- -L 8888:localhost:8888
+```
 ## 2. Build Images
 This demo relies on some customized docker containers.
 Please run `bin/build.sh`, to build the containers.
