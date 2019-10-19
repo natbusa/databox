@@ -25,9 +25,11 @@ Check https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permiss
 *Tunnel a remote port to localhost*
 On gcloud:   
 ```
-gcloud beta compute --project "ultimate-dataeng19-sin-41XX" \
-        ssh --zone "asia-southeast1-b" "databox-vm" \
-        -- -L 8888:localhost:8888
+gcloud beta compute --project "ultimate-dataeng19-sin-4100" \
+ssh --zone "asia-southeast1-b" "databox-vm" -- \
+-L 8888:localhost:8888 \
+-L 8080:localhost:8080 \ 
+-L 9000:localhost:9000
 ```
 ## 2. Build Images
 This demo relies on some customized docker containers.
