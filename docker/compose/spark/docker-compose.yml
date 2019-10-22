@@ -9,6 +9,7 @@ services:
       SPARK_NO_DAEMONIZE: "true"
     ports:
     - 8080:8080
+    - 4040:4040
     networks:
     - databox
 

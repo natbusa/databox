@@ -12,8 +12,8 @@ providers:
     minio:
         service: minio
         hostname: minio
-        username: prod-user
-        password: prod-password
+        username: minio-admin
+        password: minio-admin
         path: prod/oasis
         format: parquet
     
@@ -27,7 +27,7 @@ resources:
     
 engine:
     type: spark
-    master: local[1]
+    master: local[*]
 
 loggers:
     root:
@@ -49,4 +49,10 @@ loggers:
             topic: dfc
             hosts:
                 - kafka:9092
-            
+
+---
+profile: prod
+engine:
+    type: spark
+    master: spark://spark-master:7077
+

@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   minio:
-    image: minio/minio:edge
+    image: minio/minio
     command: ["server", "/var/lib/minio"]
     environment:
       MINIO_ACCESS_KEY: minio-admin
@@ -12,7 +12,7 @@ services:
     networks:
     - databox
 
-  createbuckets:
+  create_buckets:
     # for more production ready policies Check
     # https://gist.github.com/natbusa/999b3e1346ac394886e832ce80f28932
     # https://gist.github.com/natbusa/e777265633822c85f26dd2e936d6aef2
@@ -20,7 +20,7 @@ services:
 
     # run interactively
     # docker run -it --network databox -v $(pwd)/policies:/srv/policies --entrypoint=/bin/sh minio/mc:edge
-    image: minio/mc:edge
+    image: minio/mc
     depends_on:
       - minio
     networks:
@@ -33,18 +33,17 @@ services:
       sleep 5;
       /usr/bin/mc config host add minio http://minio:9000 minio-admin minio-admin;
 
-      ### public bucket and policy
-      #/usr/bin/mc rm -r --force minio/public;
+      ### public bucket and policy (no auth required)
+      /usr/bin/mc rm -r --force minio/public;
       /usr/bin/mc mb minio/public;
-
       /usr/bin/mc admin policy add minio public /srv/policies/public.json;
-      /usr/bin/mc admin user add minio minio-user minio-password public;
+      /usr/bin/mc policy set public minio/public;
 
       ### PSTD policies and backets and users
-      #/usr/bin/mc rm -r --force minio/prod;
-      #/usr/bin/mc rm -r --force minio/stage;
-      #/usr/bin/mc rm -r --force minio/test;
-      #/usr/bin/mc rm -r --force minio/dev;
+      /usr/bin/mc rm -r --force minio/prod;
+      /usr/bin/mc rm -r --force minio/stage;
+      /usr/bin/mc rm -r --force minio/test;
+      /usr/bin/mc rm -r --force minio/dev;
 
       /usr/bin/mc mb minio/prod;
       /usr/bin/mc mb minio/stage;
@@ -58,6 +57,10 @@ services:
       /usr/bin/mc admin user add minio prod-user prod-password prod;
       /usr/bin/mc admin user add minio stage-user stage-password stage;
       /usr/bin/mc admin user add minio develop-user develop-password testdev;
+
+      # speed tests
+      head -c 10M /dev/zero > data.zero;
+      mc cp data.zero /test/;
 
       exit 0;
       "
