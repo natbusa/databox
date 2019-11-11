@@ -25,6 +25,49 @@ providers:
             header: True
             inferSchema: True
 
+resources:
+    ascombe:
+        path: ascombe.csv
+        provider: localfs
+
+    r_test:
+        path: abc.avro
+        options:
+            overwrite_option: overwritten
+            a: True
+            
+    correlation:
+        path: correlation.csv
+        provider: localfs
+
+engine:
+    type: spark
+    master: local[*]
+    timezone: naive
+
+loggers:
+    root:
+        severity: info
+
+    datafaucet:
+        name: dfc
+        stdout:
+            enable: true
+            severity: notice
+        file:
+            enable: true
+            severity: notice
+        kafka:
+            enable: false
+            severity: info
+            hosts:
+                - kafka-node1:9092
+                - kafka-node2:9092
+            topic: dfc
+---
+profile: saveload
+providers:
+
     hdfs:
         service: hdfs
         hostname: hdfs-namenode
@@ -91,27 +134,22 @@ providers:
         password: "{{ env('CLICKHOUSE_USER_PASSWORD') }}"
         path: tax_bills
         format: jdbc
-
-resources:
-    ascombe:
-        path: ascombe.csv
-        provider: localfs
-
-    r_test:
-        path: abc.avro
-        options:
-            overwrite_option: overwritten
-            a: True
-            
-    correlation:
-        path: correlation.csv
-        provider: localfs
-
+---
+profile: prod
 engine:
     type: spark
-    master: local[*]
-    timezone: naive
+    master: spark://spark-master:7077
 
+---
+profile: minimal
+providers:
+    localfs:
+        service: file
+        path: data
+        format: csv
+        options:
+            header: True
+            inferSchema: True
 loggers:
     root:
         severity: info
@@ -121,18 +159,5 @@ loggers:
         stdout:
             enable: true
             severity: notice
-        file:
-            enable: true
-            severity: notice
-        kafka:
-            enable: false
-            severity: info
-            hosts:
-                - kafka-node1:9092
-                - kafka-node2:9092
-            topic: dfc
----
-profile: prod
-engine:
-    type: spark
-    master: spark://spark-master:7077
+
+            

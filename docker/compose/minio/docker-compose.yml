@@ -19,7 +19,7 @@ services:
     # https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-language-overview.html
 
     # run interactively
-    # docker run -it --network databox -v $(pwd)/policies:/srv/policies --entrypoint=/bin/sh minio/mc:edge
+    # docker run -it --network databox -v $(pwd)/policies:/srv/policies --entrypoint=/bin/sh minio/mc
     image: minio/mc
     depends_on:
       - minio
@@ -37,7 +37,7 @@ services:
       /usr/bin/mc rm -r --force minio/public;
       /usr/bin/mc mb minio/public;
       /usr/bin/mc admin policy add minio public /srv/policies/public.json;
-      /usr/bin/mc policy set public minio/public;
+      /usr/bin/mc policy public minio/public;
 
       ### PSTD policies and backets and users
       /usr/bin/mc rm -r --force minio/prod;
@@ -50,11 +50,13 @@ services:
       /usr/bin/mc mb minio/test;
       /usr/bin/mc mb minio/dev ;
 
-      /usr/bin/mc admin policy add minio prod /srv/policies/prod.json;
       /usr/bin/mc admin policy add minio stage /srv/policies/stage.json;
       /usr/bin/mc admin policy add minio testdev /srv/policies/testdev.json;
 
-      /usr/bin/mc admin user add minio prod-user prod-password prod;
+      /usr/bin/mc admin policy add minio prod /srv/policies/prod.json;
+      /usr/bin/mc admin user add minio prod-user prod-password;
+      /usr/bin/mc admin user policy minio prod-user prod;
+
       /usr/bin/mc admin user add minio stage-user stage-password stage;
       /usr/bin/mc admin user add minio develop-user develop-password testdev;
 
